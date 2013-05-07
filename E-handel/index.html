@@ -1,0 +1,733 @@
+﻿<!DOCTYPE html >
+<html>
+	<head>
+		<title>E-handel</title>
+		<meta charset="UTF-8" />
+		<link rel="stylesheet" href="style.css" type="text/css" />
+		<link rel="stylesheet" href="bootstrap.css" type="text/css" />
+		<link rel="stylesheet" href="http://code.jquery.com/ui/1.9.1/themes/base/jquery-ui.css" />
+		
+		<script src="js/functions.js" type="text/javascript"></script>
+		<script src="http://code.jquery.com/jquery-1.8.2.js" type="text/javascript"></script>
+		<script src="http://code.jquery.com/ui/1.9.1/jquery-ui.js" type="text/javascript"></script>
+		
+		<script type="text/javascript">
+		$(document).ready(function() {
+		jQueryTabs();
+		
+//////////VALIDATE
+		var pattern = /[0-9, ,!"#¤%&=?`´'*^¨~+|><-@£$€]/;
+		
+		//Validate fname
+		$("#Fname").keyup(function(){
+			if(!$("#Fname").val() || $("#Fname").val() == " " || $("#Fname").val().match(pattern)){
+				$("#Fname").next().fadeIn("fast");
+				$("#Fname").addClass("hasError");
+				hasError = true;
+			} else {
+				$("#Fname").next().fadeOut("fast");
+				$("#Fname").removeClass("hasError");
+			}
+		});
+		
+		//Validate lname
+		$("#Lname").keyup(function(){
+			if(!$("#Lname").val() || $("#Lname").val() == " " || $("#Lname").val().match(pattern)){
+				$("#Lname").next().fadeIn("fast");
+				$("#Lname").addClass("hasError");
+				hasError = true;
+			} else {
+				$("#Lname").next().fadeOut("fast");
+				$("#Lname").removeClass("hasError");
+			}
+		});
+		
+		//Validate address
+		$("#address").keyup(function(){
+			if(!$("#address").val() || $("#address").val() == " "){
+				$("#address").next().fadeIn("fast");
+				$("#address").addClass("hasError");
+				hasError = true;
+			} else {
+				$("#address").next().fadeOut("fast");
+				$("#address").removeClass("hasError");
+			}
+		});
+		
+		//Validate postal
+		$("#postal").keyup(function(){
+			if(!$("#postal").val() || $("#postal").val() == " " || isNaN($("#postal").val() / 1) == true){
+				$("#postal").next().fadeIn("fast");
+				$("#postal").addClass("hasError");
+				hasError = true;
+			} else {
+				$("#postal").next().fadeOut("fast");
+				$("#postal").removeClass("hasError");
+			}
+		});
+		
+		//Validate city
+		$("#city").keyup(function(){
+			if(!$("#city").val() || $("#city").val() == " " || $("#city").val().match(pattern)){
+				$("#city").next().fadeIn("fast");
+				$("#city").addClass("hasError");
+				hasError = true;
+			} else {
+				$("#city").next().fadeOut("fast");
+				$("#city").removeClass("hasError");
+			}
+		});
+		
+		//Validate phone
+		$("#phone").keyup(function(){
+			if(!$("#phone").val() || $("#phone").val() == " " || isNaN($("#phone").val() / 1) == true){
+				$("#phone").next().fadeIn("fast");
+				$("#phone").addClass("hasError");
+				hasError = true;
+			} else {
+				$("#phone").next().fadeOut("fast");
+				$("#phone").removeClass("hasError");
+			}
+		});
+		
+		//Validate email
+		$("#email").keyup(function(){
+			var pattern = /\S+@+\S+\.\S+/;
+			var str = $("#email").val();
+
+			if(!$("#email").val() || $("#email").val() == " " || !str.match(pattern)){
+				$("#email").next().fadeIn("fast");
+				$("#email").addClass("hasError");
+				hasError = true;
+			} else {
+				$("#email").next().fadeOut("fast");
+				$("#email").removeClass("hasError");
+			}
+		});
+		
+		//Validate cardOwner
+		$("#cardOwner").keyup(function(){
+			if (!$("#cardOwner").val() || $("#cardOwner").val() == " " || $("#cardOwner").val().match(pattern)){
+				$("#cardOwner").next().fadeIn("fast");
+				$("#cardOwner").addClass("hasError");
+				hasError = true;
+			} else {
+				$("#cardOwner").next().fadeOut("fast");
+				$("#cardOwner").removeClass("hasError");
+			}
+		});
+
+		//Validate cardNumber
+		$("#cardNumber").keyup(function(){
+			if(!$("#cardNumber").val() || $("#cardNumber").val() == " " || isNaN($("#cardNumber").val() / 1) == true){
+				$("#cardNumber").next().fadeIn("fast");
+				$("#cardNumber").addClass("hasError");
+				hasError = true;
+			} else {
+				$("#cardNumber").next().fadeOut("fast");
+				$("#cardNumber").removeClass("hasError");
+			}
+		});
+
+		//Validate cvc
+		$("#cvc").keyup(function(){
+			if(!$("#cvc").val() || $("#cvc").val() == " " || isNaN($("#cvc").val() / 1) == true){
+				$("#cvc").next().fadeIn("fast");
+				$("#cvc").addClass("hasError");
+				hasError = true;
+			} else {
+				$("#cvc").next().fadeOut("fast");
+				$("#cvc").removeClass("hasError");
+			}
+		});
+	
+		//Validate ssn
+		$("#ssn").keyup(function(){
+			if(!$("#ssn").val() || $("#ssn").val() == " " || isNaN($("#ssn").val() / 1) == true){
+				$("#ssn").next().fadeIn("fast");
+				$("#ssn").addClass("hasError");
+				hasError = true;
+			} else {
+				$("#ssn").next().fadeOut("fast");
+				$("#ssn").removeClass("hasError");
+			}
+		});
+		
+		//Validate checkbox
+		$("#checkbox").change(function(){
+			if(!$('#checkbox').is(':checked')){
+				$(".checkboxText").addClass("error");
+				hasError = true;
+			} else {
+				$(".checkboxText").removeClass("error");
+			}
+		});
+///////////END VALIDATE
+		
+		//Create a div with ID "separator" and insert it after each 2nd prodBox
+		var div = $(document.createElement('div')).attr('id', 'separator');
+		div.insertAfter("body");
+		var div = $("#tabs-2 .prodBox:nth-of-type(even)");
+		$("#separator").insertAfter(div);
+		
+		//Card payment
+		$("#radioKortbetalning").click(function(){
+			//Remove class "faktura"
+			$("#formen").removeClass("faktura");
+			$("#send").removeClass("faktura");
+			
+			
+			//Add class "kortbetalning"
+			$("#formen").addClass("kortbetalning");
+			$("#send").addClass("kortbetalning");
+			
+			//Make a nice transition when changing payment method
+			$("#faktura").fadeOut("fast");
+			$("#formen").fadeOut("fast");
+				
+				//Queue all the visual errors, readonly etc to show/hide when fields has faded out
+				$("#formen").queue(function(){
+					$("#formen :input").attr("readOnly", false).val("");
+					$("#tabs-3 #validatethis :input").removeClass("hasError");
+					$("#tabs-3 #validatethis .error").hide();
+					$("#tabs-3 #kortbetalning :input").removeClass("hasError");
+					$("#tabs-3 #kortbetalning .error").hide();
+					$(this).dequeue();
+				});
+			
+			if($("#formen").css("display") == "none"){
+				$("#formen").fadeIn("fast");
+				$("#kortbetalning").fadeIn("fast");
+			}
+			else{
+				$("#formen").fadeIn("fast");
+				$("#kortbetalning").delay(200).fadeIn("fast");
+			}
+		});
+		
+		//Invoice
+		$("#radioFaktura").click(function(){
+			//Remove class "kortbetalning"
+			$("#formen").removeClass("kortbetalning");
+			$("#send").removeClass("kortbetalning");
+			
+			//Add class "faktura"
+			$("#formen").addClass("faktura");
+			$("#send").addClass("faktura");
+			
+			//Make a nice transition when changing payment method
+			$("#kortbetalning").fadeOut("fast");
+			$("#formen").fadeOut("fast");
+			
+			//Queue all the visual errors, readonly etc to show/hide when fields has faded out
+			$("#formen").queue(function(){
+				$("#formen :input").attr("readOnly", true).val("");
+				$("#email").attr("readOnly", false).val("");
+				$("#send").attr("readOnly", false).val("");
+				$("#checkbox").attr("readOnly", false).val("");
+				$("#tabs-3 #validatethis :input").removeClass("hasError");
+				$("#tabs-3 #validatethis .error").hide();
+				$("#tabs-3 #faktura :input").removeClass("hasError");
+				$("#tabs-3 #faktura .error").hide();
+				$(this).dequeue();
+			});
+			
+			if($("#formen").css("display") == "none"){
+				$("#formen").fadeIn("fast");
+				$("#faktura").fadeIn("fast");
+			}
+			else{
+				$("#formen").fadeIn("fast");
+				$("#faktura").delay(200).fadeIn("fast");
+			}
+		});
+		
+		//This is for the function validateAmount
+		//Check the set value of inputfield with ID txtNumber
+		//Set lastNumber to that value
+		var myinput = $("#txtNumber").val();
+		lastNumber = myinput;
+		
+//////////LOOPS
+		//Loop through all moreinfo boxes and give them a unique id
+		$("#tabs-2 .moreinfo").each(function(index){
+			$(this).attr("id", "moreInfo"+(index+1));
+		});
+		
+		//Loop through all moreinfo buttons and give them a unique target/id number
+		$("#tabs-2 .moreInfoBtn").each(function(index){
+			$(this).attr("target", (index+1));
+			$(this).attr("id", (index+1));
+			$(this).addClass("btn");
+		});
+		
+		//Loop through all addToCart buttons and give them a unique target number
+		$("#tabs-2 .addToCart").each(function(index){
+			$(this).attr("target", (index+1));
+			$(this).addClass("btn");
+		});
+		
+		//Loop through all price divs and give them a unique id
+		$("#tabs-2 .price").each(function(index){
+			$(this).attr("id", "productPrice"+(index+1));
+		});
+		
+		//Loop through all prodBox divs and give them a unique id
+		$("#tabs-2 .prodBox").each(function(index){
+			$(this).attr("id", "prodBox"+(index+1));
+		});
+		
+		//Loop through all h2 divs and give them a unique id
+		$("#tabs-2 h2").each(function(index){
+			$(this).attr("id", "productName"+(index+1));
+		});
+		
+		//Loop through all inputfields inside tabs-2 div and give them a unique id
+		$("#tabs-2 input").each(function(index){
+			$(this).attr("id", "productAmount"+(index+1));
+		});
+/////////END LOOPS
+	});
+		</script>
+
+		<!--[if lte IE 8]>
+		<style type='text/css'>
+			#cart .tab {
+			position: absolute;
+			top: 0px; left: 240px;
+			height: 30px;
+			line-height: 30px;
+			-ms-filter: "progid:DXImageTransform.Microsoft.Matrix(M11=6.123031769111886e-17, M12=1, M21=-1, M22=6.123031769111886e-17, SizingMethod='auto expand')"; /* IE8 */
+			}
+		</style>
+		<![endif]-->
+	</head>
+	<body>
+		<div id="wrapper">
+			<div id="tabs">
+				<ul>
+					<li><a href="#tabs-1">Välj kategori</a></li>
+					<li><a href="#tabs-2" onclick="showProd();">Välj produkt</a></li>
+					<li><a href="#tabs-3">Betala</a></li>
+				</ul>
+				<div class="nav"></div>
+				<div id="tabs-1">
+					<img src="img/cars.jpg" id="catCars" onclick="selectCat(this);"/>
+					<img src="img/toys.jpg" id="catToys" onclick="selectCat(this);" />
+					<img src="img/flowers.jpg" id="catFlowers" onclick="selectCat(this);" />
+					<img src="img/trips.jpg" id="catTrips" onclick="selectCat(this);" /><br>
+				</div>
+				
+				<div id="tabs-2">
+					<p style="display: none">Du måste välja kategori först!</p>
+					
+					<div id="cars" style="display: none;">
+						<div class="prodBox">
+							<img src="img/car1_1.jpg" onmouseover="imageOver(this)" style="display: block;"/>
+							<img src="img/cars.jpg" onmouseout="imageOut(this)" style="display: none;"/>
+							<h2>Ferrari 612</h2>
+							<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. </p>
+							
+							<div class="moreinfo" style="display: none;">
+								<p>Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi.</p>
+								<p>Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus</p>
+								
+								<div class="buyBox">
+									<p class="priceAndAmount">Pris: </p><p class="price">397899kr</p>
+									<p class="priceAndAmount">Antal </p><input id="txtNumber" type="text" style="width: 25px;" value="1" maxlength="3" onkeyup="validateAmount(this);">
+									<button class="addToCart" onclick="addToCart(this);">Lägg till i varukorg</button>
+								</div>
+							</div>
+							<button class="moreInfoBtn" onclick="showMoreInfo(this);">Visa mer info</button>
+						</div>
+						
+						<div class="prodBox">
+							<img src="img/car2_1.jpg" onmouseover="imageOver(this)" style="display: block;"/>
+							<img src="img/cars.jpg" onmouseout="imageOut(this)" style="display: none;"/>
+							<h2>Lamborghini Estoque</h2>
+							<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. </p>
+							
+							<div class="moreinfo" style="display: none;">
+								<p>Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi.</p>
+								<p>Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus</p>
+								
+								<div class="buyBox">
+									<p class="priceAndAmount">Pris: </p><p class="price">278000kr</p>
+									<p class="priceAndAmount">Antal </p><input type="text" style="width: 25px;" value="1" maxlength="3" onkeyup="validateAmount(this);">
+									<button class="addToCart" onclick="addToCart(this);">Lägg till i varukorg</button>
+								</div>
+							</div>
+							<button class="moreInfoBtn" onclick="showMoreInfo(this);">Visa mer info</button>
+						</div>
+						
+						<div class="prodBox">
+							<img src="img/car3_1.jpg" onmouseover="imageOver(this)" style="display: block;"/>
+							<img src="img/cars.jpg" onmouseout="imageOut(this)" style="display: none;"/>
+							<h2>Aston Martin V12</h2>
+							<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. </p>
+							
+							<div class="moreinfo" style="display: none;">
+								<p>Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi.</p>
+								<p>Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus</p>
+								
+								<div class="buyBox">
+									<p class="priceAndAmount">Pris: </p><p class="price">345299kr</p>
+									<p class="priceAndAmount">Antal </p><input type="text" style="width: 25px;" value="1" maxlength="3" onkeyup="validateAmount(this);">
+									<button class="addToCart" onclick="addToCart(this);">Lägg till i varukorg</button>
+								</div>
+							</div>
+							<button class="moreInfoBtn" onclick="showMoreInfo(this);">Visa mer info</button>
+						</div>
+						
+						<div class="prodBox">
+							<img src="img/car4_1.jpg" onmouseover="imageOver(this)" style="display: block;"/>
+							<img src="img/cars.jpg" onmouseout="imageOut(this)" style="display: none;"/>
+							<h2>Porsche Carrera</h2>
+							<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. </p>
+							
+							<div class="moreinfo" style="display: none;">
+								<p>Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi.</p>
+								<p>Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus</p>
+								
+								<div class="buyBox">
+									<p class="priceAndAmount">Pris: </p><p class="price">259000kr</p>
+									<p class="priceAndAmount">Antal </p><input type="text" style="width: 25px;" value="1" maxlength="3" onkeyup="validateAmount(this);">
+									<button class="addToCart" onclick="addToCart(this);">Lägg till i varukorg</button>
+								</div>
+							</div>
+							<button class="moreInfoBtn" onclick="showMoreInfo(this);">Visa mer info</button>
+						</div>
+					</div>
+					
+					<div id="toys" style="display: none;">
+						<div class="prodBox">
+							<img src="img/toy1_1.jpg" onmouseover="imageOver(this)" style="display: block;"/>
+							<img src="img/toys.jpg" onmouseout="imageOut(this)" style="display: none;"/>
+							<h2>Tåg</h2>
+							<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. </p>
+							
+							<div class="moreinfo" style="display: none;">
+								<p>Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi.</p>
+								<p>Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus</p>
+								
+								<div class="buyBox">
+									<p class="priceAndAmount">Pris: </p><p class="price">59kr</p>
+									<p class="priceAndAmount">Antal </p><input id="txtNumber" type="text" style="width: 25px;" value="1" maxlength="3" onkeyup="validateAmount(this);">
+									<button class="addToCart" onclick="addToCart(this);">Lägg till i varukorg</button>
+								</div>
+							</div>
+							<button class="moreInfoBtn" onclick="showMoreInfo(this);">Visa mer info</button>
+						</div>
+						
+						<div class="prodBox">
+							<img src="img/toy2_1.jpg" onmouseover="imageOver(this)" style="display: block;"/>
+							<img src="img/toys.jpg" onmouseout="imageOut(this)" style="display: none;"/>
+							<h2>Klossar (50-pack)</h2>
+							<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. </p>
+							
+							<div class="moreinfo" style="display: none;">
+								<p>Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi.</p>
+								<p>Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus</p>
+								
+								<div class="buyBox">
+									<p class="priceAndAmount">Pris: </p><p class="price">299kr</p>
+									<p class="priceAndAmount">Antal </p><input id="txtNumber" type="text" style="width: 25px;" value="1" maxlength="3" onkeyup="validateAmount(this);">
+									<button class="addToCart" onclick="addToCart(this);">Lägg till i varukorg</button>
+								</div>
+							</div>
+							<button class="moreInfoBtn" onclick="showMoreInfo(this);">Visa mer info</button>
+						</div>
+						
+						<div class="prodBox">
+							<img src="img/toy3_1.jpg" onmouseover="imageOver(this)" style="display: block;"/>
+							<img src="img/toys.jpg" onmouseout="imageOut(this)" style="display: none;"/>
+							<h2>Kroppsnalle</h2>
+							<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. </p>
+							
+							<div class="moreinfo" style="display: none;">
+								<p>Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi.</p>
+								<p>Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus</p>
+								
+								<div class="buyBox">
+									<p class="priceAndAmount">Pris: </p><p class="price">299kr</p>
+									<p class="priceAndAmount">Antal </p><input id="txtNumber" type="text" style="width: 25px;" value="1" maxlength="3" onkeyup="validateAmount(this);">
+									<button class="addToCart" onclick="addToCart(this);">Lägg till i varukorg</button>
+								</div>
+							</div>
+							<button class="moreInfoBtn" onclick="showMoreInfo(this);">Visa mer info</button>
+						</div>
+						
+						<div class="prodBox">
+							<img src="img/toy4_1.jpg" onmouseover="imageOver(this)" style="display: block;"/>
+							<img src="img/toys.jpg" onmouseout="imageOut(this)" style="display: none;"/>
+							<h2>Teddybjörnar</h2>
+							<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. </p>
+							
+							<div class="moreinfo" style="display: none;">
+								<p>Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi.</p>
+								<p>Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus</p>
+								
+								<div class="buyBox">
+									<p class="priceAndAmount">Pris: </p><p class="price">399kr</p>
+									<p class="priceAndAmount">Antal </p><input id="txtNumber" type="text" style="width: 25px;" value="1" maxlength="3" onkeyup="validateAmount(this);">
+									<button class="addToCart" onclick="addToCart(this);">Lägg till i varukorg</button>
+								</div>
+							</div>
+							<button class="moreInfoBtn" onclick="showMoreInfo(this);">Visa mer info</button>
+						</div>
+					</div>
+					
+					<div id="flowers" style="display: none;">
+						<div class="prodBox">
+							<img src="img/flower1_1.jpg" onmouseover="imageOver(this)" style="display: block;"/>
+							<img src="img/flowers.jpg" onmouseout="imageOut(this)" style="display: none;"/>
+							<h2>Dahlia</h2>
+							<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. </p>
+							
+							<div class="moreinfo" style="display: none;">
+								<p>Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi.</p>
+								<p>Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus</p>
+								
+								<div class="buyBox">
+									<p class="priceAndAmount">Pris: </p><p class="price">59kr</p>
+									<p class="priceAndAmount">Antal </p><input id="txtNumber" type="text" style="width: 25px;" value="1" maxlength="3" onkeyup="validateAmount(this);">
+									<button class="addToCart" onclick="addToCart(this);">Lägg till i varukorg</button>
+								</div>
+							</div>
+							<button class="moreInfoBtn" onclick="showMoreInfo(this);">Visa mer info</button>
+						</div>
+						
+						<div class="prodBox">
+							<img src="img/flower2_1.jpg" onmouseover="imageOver(this)" style="display: block;"/>
+							<img src="img/flowers.jpg" onmouseout="imageOut(this)" style="display: none;"/>
+							<h2>Papegojblomma</h2>
+							<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. </p>
+							
+							<div class="moreinfo" style="display: none;">
+								<p>Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi.</p>
+								<p>Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus</p>
+								
+								<div class="buyBox">
+									<p class="priceAndAmount">Pris: </p><p class="price">199kr</p>
+									<p class="priceAndAmount">Antal </p><input id="txtNumber" type="text" style="width: 25px;" value="1" maxlength="3" onkeyup="validateAmount(this);">
+									<button class="addToCart" onclick="addToCart(this);">Lägg till i varukorg</button>
+								</div>
+							</div>
+							<button class="moreInfoBtn" onclick="showMoreInfo(this);">Visa mer info</button>
+						</div>
+						
+						<div class="prodBox">
+							<img src="img/flower3_1.jpg" onmouseover="imageOver(this)" style="display: block;"/>
+							<img src="img/flowers.jpg" onmouseout="imageOut(this)" style="display: none;"/>
+							<h2>Amaryllis</h2>
+							<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. </p>
+							
+							<div class="moreinfo" style="display: none;">
+								<p>Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi.</p>
+								<p>Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus</p>
+								
+								<div class="buyBox">
+									<p class="priceAndAmount">Pris: </p><p class="price">79kr</p>
+									<p class="priceAndAmount">Antal </p><input id="txtNumber" type="text" style="width: 25px;" value="1" maxlength="3" onkeyup="validateAmount(this);">
+									<button class="addToCart" onclick="addToCart(this);">Lägg till i varukorg</button>
+								</div>
+							</div>
+							<button class="moreInfoBtn" onclick="showMoreInfo(this);">Visa mer info</button>
+						</div>
+						
+						<div class="prodBox">
+							<img src="img/flower4_1.jpg" onmouseover="imageOver(this)" style="display: block;"/>
+							<img src="img/flowers.jpg" onmouseout="imageOut(this)" style="display: none;"/>
+							<h2>Protea</h2>
+							<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. </p>
+							
+							<div class="moreinfo" style="display: none;">
+								<p>Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi.</p>
+								<p>Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus</p>
+								
+								<div class="buyBox">
+									<p class="priceAndAmount">Pris: </p><p class="price">299kr</p>
+									<p class="priceAndAmount">Antal </p><input id="txtNumber" type="text" style="width: 25px;" value="1" maxlength="3" onkeyup="validateAmount(this);">
+									<button class="addToCart" onclick="addToCart(this);">Lägg till i varukorg</button>
+								</div>
+							</div>
+							<button class="moreInfoBtn" onclick="showMoreInfo(this);">Visa mer info</button>
+						</div>
+					</div>
+					
+					<div id="travels" style="display: none;">
+						<div class="prodBox">
+							<img src="img/trip1_1.jpg" onmouseover="imageOver(this)" style="display: block;"/>
+							<img src="img/trips.jpg" onmouseout="imageOut(this)" style="display: none;"/>
+							<h2>Kina</h2>
+							<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. </p>
+							
+							<div class="moreinfo" style="display: none;">
+								<p>Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi.</p>
+								<p>Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus</p>
+								
+								<div class="buyBox">
+									<p class="priceAndAmount">Pris: </p><p class="price">3599kr</p>
+									<p class="priceAndAmount">Antal </p><input id="txtNumber" type="text" style="width: 25px;" value="1" maxlength="3" onkeyup="validateAmount(this);">
+									<button class="addToCart" onclick="addToCart(this);">Lägg till i varukorg</button>
+								</div>
+							</div>
+							<button class="moreInfoBtn" onclick="showMoreInfo(this);">Visa mer info</button>
+						</div>
+						
+						<div class="prodBox">
+							<img src="img/trip2_1.jpg" onmouseover="imageOver(this)" style="display: block;"/>
+							<img src="img/trips.jpg" onmouseout="imageOut(this)" style="display: none;"/>
+							<h2>New York</h2>
+							<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. </p>
+							
+							<div class="moreinfo" style="display: none;">
+								<p>Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi.</p>
+								<p>Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus</p>
+								
+								<div class="buyBox">
+									<p class="priceAndAmount">Pris: </p><p class="price">5265kr</p>
+									<p class="priceAndAmount">Antal </p><input id="txtNumber" type="text" style="width: 25px;" value="1" maxlength="3" onkeyup="validateAmount(this);">
+									<button class="addToCart" onclick="addToCart(this);">Lägg till i varukorg</button>
+								</div>
+							</div>
+							<button class="moreInfoBtn" onclick="showMoreInfo(this);">Visa mer info</button>
+						</div>
+						
+						<div class="prodBox">
+							<img src="img/trip3_1.jpg" onmouseover="imageOver(this)" style="display: block;"/>
+							<img src="img/trips.jpg" onmouseout="imageOut(this)" style="display: none;"/>
+							<h2>Hawaii</h2>
+							<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. </p>
+							
+							<div class="moreinfo" style="display: none;">
+								<p>Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi.</p>
+								<p>Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus</p>
+								
+								<div class="buyBox">
+									<p class="priceAndAmount">Pris: </p><p class="price">4633kr</p>
+									<p class="priceAndAmount">Antal </p><input id="txtNumber" type="text" style="width: 25px;" value="1" maxlength="3" onkeyup="validateAmount(this);">
+									<button class="addToCart" onclick="addToCart(this);">Lägg till i varukorg</button>
+								</div>
+							</div>
+							<button class="moreInfoBtn" onclick="showMoreInfo(this);">Visa mer info</button>
+						</div>
+						
+						<div class="prodBox">
+							<img src="img/trip4_1.jpg" onmouseover="imageOver(this)" style="display: block;"/>
+							<img src="img/trips.jpg" onmouseout="imageOut(this)" style="display: none;"/>
+							<h2>Mallorca</h2>
+							<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. </p>
+							
+							<div class="moreinfo" style="display: none;">
+								<p>Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi.</p>
+								<p>Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus</p>
+								
+								<div class="buyBox">
+									<p class="priceAndAmount">Pris: </p><p class="price">1699kr</p>
+									<p class="priceAndAmount">Antal </p><input id="txtNumber" type="text" style="width: 25px;" value="1" maxlength="3" onkeyup="validateAmount(this);">
+									<button class="addToCart" onclick="addToCart(this);">Lägg till i varukorg</button>
+								</div>
+							</div>
+							<button class="moreInfoBtn" onclick="showMoreInfo(this);">Visa mer info</button>
+						</div>
+					</div>
+				</div>
+				
+				<div id="tabs-3">
+					<div id="payWrap">
+						<div id="checkOut">
+							<h2>Du har följande i din varukorg:</h2>
+							<ul>
+								<!-- List of all items that is in the cart  -->
+							</ul>
+							<h3 class="priceTotalBox">Summa: 0kr</h3>
+						</div>
+						
+						<div id="radiobuttons">
+							<input type="radio" id="radioKortbetalning" name="radio"><p>Kortbetalning</p>
+							<input type="radio" id="radioFaktura" name="radio"><p>Faktura</p>
+						</div>
+						
+						<div id="formen" style="display: none;">
+							<div id="validatethis">
+								<p>Förnamn *</p><input type="text" id="Fname"/><p class="error" style="display: none;">Ogiltigt förnamn!</p>
+								<p>Efternamn *</p><input type="text" id="Lname"/><p class="error" style="display: none;">Ogiltigt efternamn!</p>
+								<p>Adress *</p><input type="text" id="address"/><p class="error" style="display: none;">Ogiltig adress!</p>
+								<p>Co-Adress</p><input type="text" id="coAddress"/>
+								<p>Postnummer *</p><input type="text" id="postal" maxlength="5"/><p class="error" style="display: none;">Endast nummer utan blanksteg i detta fält!</p>
+								<p>Stad *</p><input type="text" id="city"/><p class="error" style="display: none;">Ogiltig stad!</p>
+								<p>Telefon *</p><input type="text" id="phone"/><p class="error" style="display: none;">Endast nummer i detta fält!</p>
+								<p>E-post *</p><input type="text" id="email"/><p class="error" style="display: none;">Ogiltig epost!</p>
+							</div>
+							<input type="checkbox" id="checkbox"/><p id="checkboxText" class="checkboxText">Jag godkänner beställningsvillkoren*</p>
+							
+							<form action="thanks.html" method="get" id="hdForm" onsubmit="return validateInputs();">
+								<input type="hidden" name="productId" id="productId" value="">
+								<input type="hidden" name="productAmount" id="productAmount" value="">
+								<input type="hidden" name="productPriceTotal" id="productPriceTotal" value="">
+								<input type="hidden" name="date" id="date" value="">
+								<input type="hidden" name="customerName" id="customerName" value="">
+								<input type="hidden" name="customerEmail" id="customerEmail" value="">
+								
+								<button id="send" class="btn" onclick="checkOut();">Betala</button>
+							</form>
+						</div>
+						
+						<div id="faktura" style="display: none;">
+							<p>Personnummer *<br>yyyymmddxxxx</p><input type="text" id="ssn" onkeyup="showSsnMessage();" maxlength="12"/><p class="error" style="display: none;">Ogiltigt personnummer!</p>
+							<button class="btn" id="getSSN" onclick="getSSN();">Hämta uppgifter</button>
+						</div>
+						
+						<div id="kortbetalning" style="display: none;">
+							<form action="checkout.html" onsubmit="return validateCard();">
+								<p>Typ*</p>
+								<select>
+									<option>VISA</option>
+									<option>MASTERCARD</option>
+								</select>
+							
+								<p>Kortägare *</p> <input type="text" id="cardOwner" /><p class="error" style="display: none;">Felaktig kortägare!</p>
+								<p>Kortnummer *</p> <input type="text" id="cardNumber"/><p class="error" style="display: none;">Endast nummer i detta fält!</p>
+								<p>CVC *</p> <input type="text" id="cvc" maxlength="3"/><p class="error" style="display: none;">Endast nummer i detta fält!</p>
+								
+								<p>Utgångsdatum *</p>
+								<select id="month">
+									<option>01</option>
+									<option>02</option>
+									<option>03</option>
+									<option>04</option>
+									<option>05</option>
+									<option>06</option>
+									<option>07</option>
+									<option>08</option>
+									<option>09</option>
+									<option>10</option>
+									<option>11</option>
+									<option>12</option>
+								</select>
+								
+								<select id="year">
+									<option>2013</option>
+									<option>2014</option>
+									<option>2015</option>
+									<option>2016</option>
+									<option>2017</option>
+								</select>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<div id="cart">
+				<ul>
+					<h2>- Varukorg -</h2>
+				</ul>
+				
+				<a onclick="showHideCashier();" class="tab">DÖLJ</a>
+				<p class="priceTotalBox">Summa: 0kr</p>
+			</div>
+		</div>
+	</body>
+</html>
