@@ -1,0 +1,10 @@
+.dropdown-menu > .li {
+	font-size: 11px;
+	display: block;
+	padding: 3px 10px;
+	clear: both;
+	font-weight: normal;
+	line-height: 20px;
+	color: #333333;
+	white-space: nowrap;
+}

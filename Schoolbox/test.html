@@ -1,0 +1,44 @@
+<html>
+  <head>
+    <title>Context menu test</title>  
+    <style type="text/css">
+      .element {
+        background-color: blue;
+        height: 300px;
+        width: 300px;
+      }
+
+      .popup {
+        background-color: red;
+        border: 1px solid black;
+        width: 100px;
+        height: 100px;
+        position: absolute;
+       }
+    </style>
+    <script type="text/javascript" src="js/jquery-min.js"></script>
+    <script type="text/javascript">
+      $(function() {
+          $(".element").contextmenu
+          (
+            function(e) {
+              $("div.popup").remove();
+              $("<div class='popup'>Hi</div>").appendTo("body")
+                .css("left", e.pageX)
+                .css("top", e.pageY)
+                .show();
+              e.preventDefault();  // return false; also works
+            }
+          );
+        }
+      );
+
+      $.fn.contextmenu = function(func) {
+        return this.bind("contextmenu", func);
+      }
+    </script>
+  </head>
+  <body>
+    <div class="element"></div>
+  </body>
+</html>
