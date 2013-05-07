@@ -1,0 +1,3 @@
+		-	Profilbilduppladdning
+		-	Lägg in info i footern
+		-	Fixa bilder till startsidan

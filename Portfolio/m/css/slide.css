@@ -1,0 +1,277 @@
+/*
+Name: Sliding Login Panel with jQuery 1.3.2
+Author: Jeremie Tisseau
+Author URI: http://web-kreation.com/
+Date: March 26, 2009
+Version: 1.0
+
+	Copyright 2009 Jeremie Tisseau
+	"Sliding Login Panel with jQuery 1.3.2" is distributed under the GNU General Public License version 3:
+	http://www.gnu.org/licenses/gpl-3.0.html
+*/
+
+/***** clearfix *****/
+.clear {clear: both;height: 0;line-height: 0;}
+.clearfix:after {content: ".";display: block;height: 0;clear: both;visibility: hidden;}
+.clearfix {display: inline-block;}
+/* Hides from IE-mac \*/
+* html .clearfix {height: 1%;}
+.clearfix {display: block;}
+/* End hide from IE-mac */
+.clearfix {height: 1%;}
+.clearfix {display: block;}
+
+/* Panel Tab/button */
+.tab {
+	/*background: url(../img/header_bg.png) no-repeat;*/
+	background: #272727;
+	height: 48px;
+	position: relative;
+    top: 0;
+    z-index: 999;
+	width: 1980px;
+}
+
+.inner-tab {
+	/*background: url(../img/header_bg.png) no-repeat;*/
+	background: #272727;
+	height: 48px;
+	position: relative;
+    top: 0;
+    z-index: 999;
+	width: 980px;
+	margin-left: 460px;
+}
+
+.tab ul.loggedin {
+	display: block;
+	position: relative;
+  	float: right;
+  	clear: right;
+  	height: 48px;
+	width: auto;
+  	color: white;
+  	font-size: 80%;
+	text-align: center;
+}
+
+.tab ul.loggedin li {
+ 	text-align: left;
+  	margin-left: 15px;
+	margin-top: 15px;
+	display: block;
+	float: left;
+}
+
+.tab ul.loggedin li a {
+	color: #15ADFF;
+}
+
+.tab ul.loggedin li a:hover {
+	color: white;
+	text-decoration: none;
+}
+
+.tab ul.login {
+	display: block;
+	position: relative;
+  	float: right;
+  	clear: right;
+  	height: 48px;
+	width: auto;
+  	color: white;
+  	font-size: 80%;
+	text-align: center;
+}
+
+.tab ul.login li {
+ 	text-align: left;
+  	margin-left: 15px;
+	margin-top: 15px;
+	display: block;
+	float: left;
+}
+
+.tab ul.login li a {
+	color: #15ADFF;
+}
+
+.tab ul.login li a:hover {
+	color: white;
+	text-decoration: none;
+}
+
+.tab .sep {
+	border-right: 1px solid #414141;
+	height: 20px; 
+	margin-top: 12px!important;
+}
+
+.tab a.open, .tab a.close {
+	height: 20px;
+	line-height: 20px !important;
+	padding-left: 30px !important;
+	cursor: pointer;
+	display: block;
+	width: 80px;
+	position: relative;
+	top: -2px;
+}
+
+.tab a.open {background: url(../images/bt_open.png) no-repeat left 0;}
+.tab a.close {background: url(../images/bt_close.png) no-repeat left 0;}
+.tab a:hover.open {background: url(../images/bt_open.png) no-repeat left -19px;}
+.tab a:hover.close {background: url(../images/bt_close.png) no-repeat left -19px;}
+
+/* sliding panel */
+#toppanel {
+    position: relative;
+    top: 0; left: -462px;
+    width: 1980px;
+    z-index: 999;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#panel {
+	width: 100%;
+	height: auto;
+	color: #999999;
+	background: #272727;
+	overflow: hidden;
+	position: relative;
+	z-index: 3;
+	display: none;
+}
+
+#panel h1 {
+	display: block;
+	float: left;
+	font-size: 20px;
+	margin: 0;
+	color: white;
+	margin-bottom: 10px;
+}
+
+#panel h2{
+	font-size: 14px;
+	float: left;
+	margin-top: 10px;
+	color: white;
+	font-weight: normal;
+}
+
+#panel p {
+	margin: 10px 0;
+	padding: 0;
+	float: left;
+}
+
+#panel a {
+	text-decoration: none;
+	color: #15ADFF;
+}
+
+#panel a:hover {
+	color: white;
+}
+
+#panel a-lost-pwd {
+	display: block;
+	float: left;
+}
+
+#panel .content {
+	width: 960px;
+	margin-left: 480px;
+	margin-top: 48px;
+	text-align: left;
+	font-size: 0.85em;
+}
+
+#panel .content .right { border-right: 1px dashed #333!important; }
+#panel .content .left {
+	width: 280px;
+	height: 353px;
+	float: left;
+	padding: 0 19px;
+	border-left: 1px dashed #333;
+	margin: 10px 0px;
+}
+
+#panel .content form {
+	margin: 0 0 10px 0;
+}
+
+#panel .content label {
+	float: left;
+	padding-top: 8px;
+	clear: both;
+	width: 280px;
+	display: block;
+}
+
+#panel .content input.field {
+	border: 1px #202020 solid;
+	background: #323232;
+	margin-right: 5px;
+	margin-top: 4px;
+	width: 280px;
+	color: #777;
+	height: 25px;
+	text-indent: 6px;
+	border-radius: 6px;
+}
+
+#panel .content input:focus.field {
+	background: #414141;
+	outline: none;
+	text-indent: 6px;
+	color: #f4f4f4;
+}
+
+/* BUTTONS */
+/* Login and Register buttons */
+#panel .content input.bt_login,
+#panel .content input.bt_register {
+	display: block;
+	float: left;
+	clear: left;
+	height: 24px;
+	text-align: center;
+	cursor: pointer;
+	border: none;
+	font-weight: bold;
+	margin: 10px 0;
+}
+
+#panel .content input.bt_login,
+#panel .content input.bt_register {
+	width: 98px;
+	height: 29px;
+	color: white;
+	font-size: 11px;
+	background: url(../img/button_top.png) no-repeat 0 0;
+	letter-spacing: 1;
+	font-weight: normal;
+}
+
+#panel .content input.bt_login:hover,
+#panel .content input.bt_register:hover {
+	width: 98px;
+	height: 29px;
+	color: white;
+	font-size: 11px;
+	background: url(../img/button_top_hover.png) no-repeat 0 0;
+}
+
+#panel .lost-pwd {
+	display: block;
+	float:left;
+	clear: right;
+	padding: 15px 5px 0;
+	font-size: 0.95em;
+	text-decoration: underline;
+}
+
